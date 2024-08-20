@@ -30,12 +30,12 @@ pip install -r requirements.txt
 ```
 
 Running the Optimization Script
-Optimize the performance of your LoRA models by executing the best.py script:
+The `best.py` script is designed to find the best operator configurations:
 ```bash
 python best.py
 
 ```
-This script generates a TVM log file containing detailed tuning information.
+This script generates a TVM log file containing the best tuning information.
 
 ### Understanding the Tuning Parameters
 The TVM log file records various optimization steps taken during the auto-tuning process. Here’s a breakdown of what each parameter represents:
