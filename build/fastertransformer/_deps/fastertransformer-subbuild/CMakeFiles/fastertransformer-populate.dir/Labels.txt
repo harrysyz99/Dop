@@ -1,0 +1,14 @@
+# Target labels
+ fastertransformer-populate
+# Source files and their labels
+/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/CMakeFiles/fastertransformer-populate
+/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/CMakeFiles/fastertransformer-populate.rule
+/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/CMakeFiles/fastertransformer-populate-complete.rule
+/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-build.rule
+/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-configure.rule
+/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-download.rule
+/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-install.rule
+/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-mkdir.rule
+/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-patch.rule
+/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-test.rule
+/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-update.rule

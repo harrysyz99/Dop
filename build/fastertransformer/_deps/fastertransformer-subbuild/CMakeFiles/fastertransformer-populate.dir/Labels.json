@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/CMakeFiles/fastertransformer-populate"
+		},
+		{
+			"file" : "/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/CMakeFiles/fastertransformer-populate.rule"
+		},
+		{
+			"file" : "/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/CMakeFiles/fastertransformer-populate-complete.rule"
+		},
+		{
+			"file" : "/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-build.rule"
+		},
+		{
+			"file" : "/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-configure.rule"
+		},
+		{
+			"file" : "/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-download.rule"
+		},
+		{
+			"file" : "/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-install.rule"
+		},
+		{
+			"file" : "/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-mkdir.rule"
+		},
+		{
+			"file" : "/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-patch.rule"
+		},
+		{
+			"file" : "/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-test.rule"
+		},
+		{
+			"file" : "/root/punica/build/fastertransformer/_deps/fastertransformer-subbuild/fastertransformer-populate-prefix/src/fastertransformer-populate-stamp/fastertransformer-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"fastertransformer-populate"
+		],
+		"name" : "fastertransformer-populate"
+	}
+}

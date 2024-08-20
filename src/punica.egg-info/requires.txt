@@ -1,0 +1,14 @@
+torch
+transformers
+numpy
+
+[dev]
+pytest
+pytest-cov
+ruff
+pytz
+tqdm
+scipy
+peft
+accelerate
+textual

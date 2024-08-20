@@ -1,0 +1,23 @@
+# ninja log v6
+6	2341	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/rms_norm/rms_norm_cutlass.o	d89bf1422d59a73a
+1	2939	1721054458951212426	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/flashinfer_all.o	e49decd83a045338
+1	4671	1721054458951212426	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_decode_p16_g1_h128_bf16.o	93814fa40762fa52
+1	4888	1721054458951212426	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_decode_p16_g1_h128_fp16.o	d252294ac50fcb8d
+2	5070	1721054458951212426	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_decode_p16_g2_h128_fp16.o	f9722b3c4f284693
+2	5109	1721054458951212426	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_decode_p16_g2_h128_bf16.o	71d18d31c93af8d9
+3	5456	1721054458951212426	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_decode_p16_g4_h128_fp16.o	3773d9dba3037655
+2	5456	1721054458951212426	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_decode_p16_g4_h128_bf16.o	7f946cd6a5a19d18
+3	6202	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_decode_p16_g8_h128_fp16.o	9abc8bd809ac7339
+3	6340	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_decode_p16_g8_h128_bf16.o	b3974c432cdff1ef
+4	6415	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_prefill_p16_g1_h128_fp16.o	643f4b0891e6e7ad
+6	6638	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_prefill_p16_g8_h128_fp16.o	746e3d59f4ff6fad
+5	6658	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_prefill_p16_g4_h128_bf16.o	bebac89c7bfc019b
+5	6688	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_prefill_p16_g4_h128_fp16.o	342111567f078185
+5	6690	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_prefill_p16_g8_h128_bf16.o	956e1854e938b4a5
+3	6701	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_prefill_p16_g1_h128_bf16.o	5eed1169b58613f8
+4	6727	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_prefill_p16_g2_h128_bf16.o	5e415489eb9afd92
+4	6738	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/flashinfer_adapter/generated/batch_prefill_p16_g2_h128_fp16.o	19a914a60cf00a62
+7	9700	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/sgmv_flashinfer/sgmv_all.o	febe286042235f92
+7	9878	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/sgmv/sgmv_cutlass.o	9622940101f12e16
+6	20652	1721054458955212296	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/punica_ops.o	68de91330499426e
+1	28499	1721054458951212426	/root/punica/build/temp.linux-x86_64-cpython-312/csrc/bgmv/bgmv_all.o	e5238aec239ae43b

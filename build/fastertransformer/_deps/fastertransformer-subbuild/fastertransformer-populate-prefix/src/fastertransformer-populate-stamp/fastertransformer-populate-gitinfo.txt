@@ -1,0 +1,3 @@
+repository='https://github.com/void-main/FasterTransformer.git'
+module=''
+tag='origin'
