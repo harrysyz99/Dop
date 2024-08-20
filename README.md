@@ -1,106 +1,78 @@
-# Punica: Serving multiple LoRA finetuned LLM as one
-
-[(paper)](https://arxiv.org/abs/2310.18547)
-
-## Demo
-
-[punica-tui-demo.webm](https://github.com/punica-ai/punica/assets/2470081/532c6114-9322-4d53-ae88-1d0f44dc960f)
-
-```bash
-python examples/tui-multi-lora.py
-```
+# DOP: Dynamic Operator Optimization for LoRA Serving
 
 ## Overview
 
-[Low rank adapation](https://arxiv.org/abs/2106.09685) (LoRA) is a parameter efficient way to add new knowledge to a pretrained LLM. Although the pretrained LLM takes 100s of GB storage, a LoRA finetuned model only adds 1% storage and memory overhead. Punica enables running multiple LoRA finetuned models at the cost of running one.
+Low-Rank Adaptation (LoRA) is increasingly recognized for its efficiency in fine-tuning large language models (LLMs) with minimal resource overhead. Traditional approaches to serving multiple LoRA models often suffer from redundant computations and low GPU utilization. Our work introduces Dynamic Operator Optimization (Dop), a cutting-edge method that dynamically optimizes the Segmented Gather Matrix-Vector Multiplication (SGMV) operator to address these inefficiencies.
 
-How?
+Dop significantly enhances computational efficiency by batching GPU operations across different LoRA models, allowing for improved throughput. The core of Dop is its innovative Search Space Constructor, which creates a hierarchical search space. This space divides the optimization process into high-level structural sketches and detailed implementation levels, offering both diversity and flexibility in operator implementation.
 
-Assuming `W` of shape `[H1, H2]` is the weight of the pretrained model, LoRA adds two small matrices `A` of shape `[H1, r]` and `B` of `[r, H2]`. Running a input `x` on the finetuned model would be `y := x @ (W + A@B)`, which is the same as `y := x@W + x@A@B`.
+An advanced Optimization Engine further refines these implementations through evolutionary search, guided by a performance-estimating cost model. This iterative optimization process enables SGMV implementations to dynamically adapt to varying scenarios, ensuring optimal performance.
 
-When there are `n` LoRA models, there will be `A1`, `B1`, `A2`, `B2`, ..., `An`, `Bn`.  Given a input batch `X := (x1,x2,...,xn)` that maps to each LoRA model, the output is `Y := X@W + (x1@A1@B1, x2@A2@B2, ..., xn@An@Bn)`. The left-hand-side computes the input batch on the pretrained model. It is quite efficient. The latency is almost the same as when there's only one input, thanks to the strong [batching effect](https://le.qun.ch/en/blog/2023/05/13/transformer-batching/).
+We have empirically demonstrated that Dop can enhance throughput by 1.30 to 1.46 times compared to traditional multi-tenant LoRA serving solutions, marking a significant advancement in the field.
 
-We figured out an efficient way to compute the right-hand-side (the LoRA addon). We encapsulate this operation in a CUDA kernel, called Segmented Gather Matrix-Vector multiplication (SGMV), as illustrated below.
+## Setup Instructions
 
-<p align="center"><img src="assets/sgmv.png" alt="SGMV" style="width: 400px;"></p>
+### Prerequisites
+Ensure you have Python and the necessary packages installed by following these steps:
 
-In the following microbenchmark figure, we can observe the strong batching effect of the pretrained model. Naive implementation of LoRA is slow, as depicted in the orange line. LoRA implemented via SGMV is efficient and preserves the strong batching effect.
+1. **Install Python**: Make sure Python is installed on your system. You can download it from [python.org](https://www.python.org/downloads/).
 
-<p align="center"><img src="assets/backbone-vs-sgmv.png" alt="SGMV is fast and maintains strong batching effect" style="width: 400px;"></p>
+2. **Install TVM**: DOP requires TVM for backend optimizations. Follow the installation instructions on the [TVM official documentation](https://tvm.apache.org/docs/install/index.html).
 
-The following figure shows the text generation throughput comparison between Punica and other systems, including [HuggingFace Transformers](https://github.com/huggingface/transformers/), [DeepSpeed](https://github.com/microsoft/DeepSpeed), [FasterTransformer](https://github.com/NVIDIA/FasterTransformer), [vLLM](https://github.com/vllm-project/vllm). The benchmark considers different settings of LoRA model popularity. *Distinct* means that each request is for a different LoRA model. *Identical* means that all requests are for the same LoRA model. *Uniform* and *Skewed* are in between. **Punica achieves 12x throughput compared to state-of-the-art systems.**
+### Installation
 
-<p align="center"><img src="assets/textgen.png" alt="Punica achieves 12x throughput compared to state-of-the-art systems" style="width:100%"></p>
-
-Read our paper to understand more: [Punica: Multi-Tenant LoRA Serving](https://arxiv.org/abs/2310.18547).
-
-
-## Installation
-
-You can install Punica from binary package or build from source.
-
-### Install from binary package
-
-* Pros: No need to compile. Fast to install.
-* Cons: Might not match your CUDA version, CUDA architecture, PyTorch version, or Python version.
-* Current precompiled versions:
-  * CUDA: 11.8, 12.1
-  * Python: 3.10, 3.11
-  * TORCH_CUDA_ARCH_LIST: `8.0 8.6 8.9+PTX`
+Clone the repository and set up the environment:
 
 ```bash
-pip install ninja torch
-pip install punica -i https://punica-ai.github.io/whl/cu121/ --extra-index-url https://pypi.org/simple
-# Note: Change cu121 to your CUDA version.
+git clone https://github.com/your-github-repo/dop.git
+cd dop
+pip install -r requirements.txt
 ```
 
-### Build from source
+Running the Optimization Script
+Optimize the performance of your LoRA models by executing the best.py script:
+```bash
+python best.py
+
+```
+This script generates a TVM log file containing detailed tuning information.
+
+### Understanding the Tuning Parameters
+The TVM log file records various optimization steps taken during the auto-tuning process. Here’s a breakdown of what each parameter represents:
+
+AN (AnnotationStep): Adds annotations to the loop levels.\
+FU (FuseStep): Fuses two consecutive loop levels to enhance data locality and reduce loop overhead.\
+PR (PragmaStep): Inserts pragmas in the generated code for additional compiler directives.\
+RE (ReorderStep): Reorders loop levels to optimize memory access patterns and parallelism.\
+SP (SplitStep): Splits a loop level into two nested levels to fine-tune granularity of computation.\
+FSP (FollowSplitStep): Follows a SplitStep, adjusting subsequent operations to maintain logical correctness.\
+FFSP (FollowFusedSplitStep): Follows a fusion of splits, adjusting for combined granularity changes.\
+SA (StorageAlignStep): Aligns data storage for more efficient memory access.\
+CA (ComputeAtStep): Moves computation closer to the memory location where data resides.\
+CI (ComputeInlineStep): Inlines computation to eliminate loop overhead where possible.\
+CR (ComputeRootStep): Sets the computation to occur at the 'root' level, affecting all subsequent operations.\
+CHR (CacheReadStep): Caches data read from memory to improve access speeds.\
+CHW (CacheWriteStep): Caches data written to memory to optimize write operations.\
+RF (RfactorStep): Factorizes a reduction operation to enable parallelism in reductions.\
+
+### Applying Log File Insights
+With the tuning log generated, incorporate the suggested optimizations into your sgmv.cuh file in the src directory to enhance performance.
+
+### Running Benchmarks
+To verify the improvements:
 
 ```bash
-# Please install torch before punica
-pip install ninja numpy torch
-
-# Clone punica
-git clone https://github.com/punica-ai/punica.git
-cd punica
-git submodule sync
-git submodule update --init
-
-# If you encouter problem while compilation, set TORCH_CUDA_ARCH_LIST to your CUDA architecture.
-# export TORCH_CUDA_ARCH_LIST="8.0"
-
-# Build and install punica
-pip install -v --no-build-isolation .
+python -m benchmarks.bench_textgen_lora --batch-size 32
 ```
 
-## Examples
+# Acknowledgements
 
-### Serving multiple LoRA models
+We would like to express our gratitude to the developers of **Punica** and **TVM** for their pioneering technologies that have significantly influenced the development of our Dynamic Operator Optimization (Dop) system.
 
-See the demo above.
+## Punica
+**Punica** has been instrumental in demonstrating the efficiency of Low-Rank Adaptation (LoRA) for fine-tuning large language models (LLMs). LoRA is notably resource-efficient, adding minimal storage and memory overhead to pretrained LLMs. Punica's approach allows the simultaneous running of multiple LoRA-finetuned models with the overhead of only a single model by leveraging a sophisticated method of matrix operation that manages multiple sets of adaptations (A1, B1, A2, B2, ..., An, Bn) efficiently. This batching effect ensures high computational efficiency and reduced latency across multiple inputs.
 
-### Finetune & convert to Punica format & serve with Punica
+## TVM
+**TVM** has provided an essential framework for optimizing and accelerating the machine learning workloads that underpin our Dop system. TVM's versatile compiler infrastructure allows us to fine-tune and optimize our models across diverse hardware architectures, contributing significantly to the performance enhancements we achieve in LoRA model serving.
 
-See [`examples/finetune/`](examples/finetune/)
-
-### Benchmark text generation
-
-```bash
-python -m benchmarks.bench_textgen_lora --system punica --batch-size 32
-```
-
-
-## Citation
-
-```bibtex
-@misc{punica,
-    title={Punica: Multi-Tenant LoRA Serving},
-    author={Lequn Chen and Zihao Ye and Yongji Wu and Danyang Zhuo and Luis Ceze and Arvind Krishnamurthy},
-    year={2023},
-    eprint={2310.18547},
-    archivePrefix={arXiv},
-    primaryClass={cs.DC}
-}
-```
-# Dop
-# Dop
+The synergistic technologies of Punica and TVM have enabled us to push the boundaries of what's possible in the optimization of deep learning models. Their tools and frameworks have been crucial in helping us implement the Segmented Gather Matrix-Vector Multiplication (SGMV) optimizations that are central to Dop's performance improvements.
