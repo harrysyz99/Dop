@@ -1,5 +1,4 @@
-# DOP: Dynamic Operator Optimization for LoRA Serving
-
+# DOP: Dynamic Dynamic Operator Optimization
 ## Overview
 
 Low-Rank Adaptation (LoRA) is increasingly recognized for its efficiency in fine-tuning large language models (LLMs) with minimal resource overhead. Traditional approaches to serving multiple LoRA models often suffer from redundant computations and low GPU utilization. Our work introduces Dynamic Operator Optimization (Dop), a cutting-edge method that dynamically optimizes the Segmented Gather Matrix-Vector Multiplication (SGMV) operator to address these inefficiencies.
